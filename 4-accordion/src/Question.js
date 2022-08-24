@@ -13,7 +13,9 @@ const Question = (props) => {
       <article className='question'>
          <header>
             <h4>{props.question.title}</h4>
-            { showInfo ?  <button className='btn' onClick={toggleShow}> <AiOutlinePlus /> </button> : <button className='btn' onClick={toggleShow}> <AiOutlineMinus /> </button> }
+            {/* The line below is the lengthy way of doing the same thing done 2 lines below */}
+            {/* { showInfo ?  <button className='btn' onClick={toggleShow}> <AiOutlinePlus /> </button> : <button className='btn' onClick={toggleShow}> <AiOutlineMinus /> </button> } */}
+            <button className='btn' onClick={toggleShow}> {showInfo ? <AiOutlinePlus /> : <AiOutlineMinus /> } </button>
          </header>
          { showInfo && <p>{props.question.info}</p> }
       </article>
