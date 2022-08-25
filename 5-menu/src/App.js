@@ -11,6 +11,7 @@ function App() {
   const [categories, setCategories] =useState(allCategories);
 
   const filterItems = (category) => {
+    // if category is set to all, then setMenuItems to all items which comes from items file. Else, filter data by category(below).
     if(category === "all"){
       setMenuItems(items)
     }
