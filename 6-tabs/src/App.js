@@ -7,7 +7,7 @@ const url = 'https://course-api.com/react-tabs-project'
 function App() {
   const [loading, setLoading] = useState(true)
   const [jobs, setJobs] = useState([])
-  const [value, setValue] = useState([])
+  const [value, setValue] = useState(0)
 
   const fetchJobs = async () => {
     const response = await fetch(url)
@@ -28,8 +28,21 @@ function App() {
     )
   }
   else{
+    // Value is just the index used to fetch a specific job. So if value = 0, its fetching the first job. Also, using destructuring to temporarily
+    // store the values of the job with this index to be more easily accessible. Otherwise, you may have to do something like this
+    // <p>{jobs[value].title}</p> instead of  <p>{title}</p>
+    const {title, company, dates, duties} = jobs[value]
     return(
-      <h2>tabs project setup</h2>
+      <section className='section'>
+        <div className='title'>
+          <h2> Experience </h2>
+          <div className='underline'></div>
+          <div className='jobs-center'> 
+            {/* button container */}
+            {/* job info */}
+          </div>
+        </div>
+      </section>
     )
   }
 }
