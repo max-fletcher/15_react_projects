@@ -15,7 +15,7 @@ function App() {
       // console.log('hello');
       // console.log(color);
       let colors = new Values(color).all(10)
-      console.log(colors);
+      setList(colors);
       setError(false)
     } catch (error) {
       // console.log(error);
@@ -34,7 +34,13 @@ function App() {
         </form>
       </section>
       <section className='colors'>
-        <h4>List Goes Here</h4>
+        {
+          list.map((color, index) => {
+            // The code below also works if you wish to pass color using spread operator
+            // return <SingleColor key={index} {...color} index={index} />
+            return <SingleColor key={index} color={color} index={index} />
+          })
+        }
       </section>
     </>
   )
