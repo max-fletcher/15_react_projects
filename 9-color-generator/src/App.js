@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import SingleColor from './SingleColor'
-
+// values package(for colors)
 import Values from 'values.js'
 
 function App() {
@@ -14,10 +14,11 @@ function App() {
     try {
       // console.log('hello');
       // console.log(color);
-      let colors = new Values(color).all(10)
+      let colors = new Values(color).all(10) // 10 because we want 10 shades and tints of the color hex provided. You can change to to anythign you want.
       setList(colors);
       setError(false)
-    } catch (error) {
+    } 
+    catch (error) {
       // console.log(error);
       setError(true)
     }
