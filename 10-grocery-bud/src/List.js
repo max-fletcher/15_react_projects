@@ -11,8 +11,10 @@ const List = (props) => {
                return <article key={id} className='grocery-item'>
                   <p className='title'>{title}</p>
                   <div className='btn-container'>
-                     <button type='button' className='edit-btn'> <FaEdit /> </button>
-                     <button type='button' className='delete-btn'> <FaTrash /> </button>
+                     <button type='button' className='edit-btn' onClick={() => { props.editItem(id) }}> <FaEdit /> </button>
+                     {/* As per previous lessons, using function inside an onclick when nested function has function params.
+                        Otherwise, it will be called right away on render. */}
+                     <button type='button' className='delete-btn' onClick={() => { props.removeItem(id) }}> <FaTrash /> </button>
                   </div>
                </article>
             })
