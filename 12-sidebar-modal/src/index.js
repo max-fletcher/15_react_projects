@@ -3,11 +3,15 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import {AppProvider} from './context' // we are importing a contextAPI from a file elsewhere
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    {/* AppProvider contains 2 states and 4 functions that modify those states. We will selectively pass them down each component as required. */}
+    <AppProvider>
+      <App />
+    </AppProvider>
   </React.StrictMode>
 );
 
