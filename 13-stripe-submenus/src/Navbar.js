@@ -27,11 +27,6 @@ const Navbar = () => {
       openSubmenu(page, {center, button})
    }
 
-   // function imported from context.js. Its for closing the submenu.
-   const hideSubmenu = (e) => {
-      closeSubmenu()
-   }
-
    const handleSubmenu = (e) => {
       // **APPENDIX
       // Basically, the submenu closes under 2 conditions. 1st, if you hover over the 'Hero' component(i.e leaves the navbar), and 2nd if the user hovers over the
