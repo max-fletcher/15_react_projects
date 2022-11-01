@@ -37,7 +37,7 @@ const AppProvider = ({children}) => {
    }
 
    return (
-      <AppContext.Provider value={{ 
+      <AppContext.Provider value={{
          isSubmenuOpen,
          openSubmenu,
          closeSubmenu,
