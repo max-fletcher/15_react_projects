@@ -1,4 +1,5 @@
 import { useState, useContext, createContext } from 'react'
+import sublinks from './data';
 
 // create contextAPI. This is a new way to create a context as opposed to importing "React" and using React.createContext()
 const AppContext = createContext()
@@ -8,8 +9,8 @@ const AppContext = createContext()
 const AppProvider = ({children}) => {
    const [isSubmenuOpen, setIsSubmenuOpen] = useState(false)
    const [isSidebarOpen, setIsSidebarOpen] = useState(false)
-   // used to store the location of the submenu
-   const [location, setLocation] = useState({})
+   const [location, setLocation] = useState({}) // used to store the location of the submenu. When this changes, will trigger a useEffect inside Submenu to adjust the location of the submenu
+   const [page, setPage] = useState({page: '', links: []}) // used to store page link from 'sublinks' after matching(in 'openSubmenu' function)
 
    const openSidebar = ()=>{
       setIsSidebarOpen(true)
@@ -20,7 +21,14 @@ const AppProvider = ({children}) => {
    }
 
    const openSubmenu = (text, coordinates)=>{
-      setLocation(coordinates)
+
+      // return 'link' from 'sublinks' that has same value as 'page' state
+      const page = sublinks.find((link) =>
+         {return link.page === text}
+      )
+
+      setPage(page) // after the desired page is found in 'sublinks'(the above block), we are setting the 'page' context equal to the page found
+      setLocation(coordinates)// used to change the 'coordinates' context
       setIsSubmenuOpen(true)
    }
 
@@ -29,7 +37,18 @@ const AppProvider = ({children}) => {
    }
 
    return (
-      <AppContext.Provider value={{ isSubmenuOpen, openSubmenu, closeSubmenu, isSidebarOpen, openSidebar, closeSidebar, location }}>{children}</AppContext.Provider>
+      <AppContext.Provider value={{ 
+         isSubmenuOpen,
+         openSubmenu,
+         closeSubmenu,
+         isSidebarOpen,
+         openSidebar,
+         closeSidebar,
+         location,
+         page
+      }}>
+         {children}
+      </AppContext.Provider>
 
       // The double curly braces here is because the value prop accepts either a single value i.e value="Hello" or an object
       // i.e value={{ name: 'some name', some_function: some_function }}
