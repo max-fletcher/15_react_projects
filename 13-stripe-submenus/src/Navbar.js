@@ -32,9 +32,21 @@ const Navbar = () => {
       closeSubmenu()
    }
 
+   const handleSubmenu = (e) => {
+      // **APPENDIX
+      // Basically, the submenu closes under 2 conditions. 1st, if you hover over the 'Hero' component(i.e leaves the navbar), and 2nd if the user hovers over the
+      // navbar but not the buttons with 'nav-link'. So we set 2 conditions. First in the hero page and the 2nd is this one which says that if the user hovers 
+      // over the navbar but not the buttons with 'nav-link', then we close the submenu.
+
+      // If the mouse is not over a button that has the class 'link-btn' then close the submenu.
+      if(!e.target.classList.contains('link-btn')){
+         closeSubmenu()
+      }
+   }
+
    return (
-      <>
-         <nav className='nav'>
+         // See **APPENDIX above
+         <nav className='nav' onMouseOver={handleSubmenu}>
             <div className='nav-center'>
                <div className='nav-header'>
                   <img src={logo} alt="stripe" className='nav-logo' />
@@ -44,23 +56,21 @@ const Navbar = () => {
                   </button>
                </div>
                <ul className='nav-links'>
-                  {/* On hover, the submenu opens. On leaving, the submenu closes. */}
+                  {/* On hover, the submenu opens.*/}
                   <li>
-                     <button className='link-btn' onMouseOver={displaySubmenu} onMouseLeave={hideSubmenu}>products</button>
+                     <button className='link-btn' onMouseOver={displaySubmenu}>products</button>
                   </li>
                   <li>
-                     <button className='link-btn' onMouseOver={displaySubmenu} onMouseLeave={hideSubmenu}>developers</button>
+                     <button className='link-btn' onMouseOver={displaySubmenu}>developers</button>
                   </li>
                   <li>
-                     <button className='link-btn' onMouseOver={displaySubmenu} onMouseLeave={hideSubmenu}>company</button>
+                     <button className='link-btn' onMouseOver={displaySubmenu}>company</button>
                   </li>
                </ul>
-               <button className='btn signin-btn' onMouseOver={displaySubmenu} onMouseLeave={hideSubmenu}>Sign In</button>
+               <button className='btn signin-btn'>Sign In</button>
             </div>
          </nav>
-      </>
    )
-      
 }
 
 export default Navbar
