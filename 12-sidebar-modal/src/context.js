@@ -26,7 +26,7 @@ const AppProvider = ({children}) => {
    }
 
    return (
-      // The double curly braces here is because the value prop accepts either a single value i.e value="Hello" or an object
+      // The double curly braces here is because the value prop in context accepts either a single value i.e value="Hello" or an object. Its a rule of thumb for contexts.
       // i.e value={{ name: 'some name', some_function: some_function }}
       <AppContext.Provider value={{isModalOpen, isSidebarOpen, openSidebar, closeSidebar, openModal, closeModal}}>{children}</AppContext.Provider>
    )
