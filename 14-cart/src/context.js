@@ -5,22 +5,6 @@ import reducer from './reducer'
 // I SWITCHED TO PERMANENT DOMAIN
 const url = 'https://course-api.com/react-useReducer-cart-project'
 
-// const [cart, setCart] = useState(cartItems)
-
-// const AppProvider = ({ children }) => {
-//    const [cart, setCart] = useState(cartItems)
-
-//    return (
-//       <AppContext.Provider
-//          value={{
-//          cart,
-//          }}
-//       >
-//          {children}
-//       </AppContext.Provider>
-//    )
-// }
-
 const AppContext = createContext()
 
 const initialState = {
@@ -32,6 +16,28 @@ const initialState = {
 
 const AppProvider = ({ children }) => {
    const [state, dispatch] = useReducer(reducer, initialState)
+
+   // DISPATCH FUNCTIONS
+   const clearCart = () => {
+      dispatch({type: 'CLEAR_CART'})
+   }
+
+   const removeItem = (id) => {
+      dispatch({type: 'REMOVE_ITEM', payload:id}) // sending item id to reducer
+   }
+
+   const increase = (id) => {
+      dispatch({type: 'INCREASE_ITEM', payload:id}) // sending item id to reducer
+   }
+
+   const decrease = (id) => {
+      dispatch({type: 'DECREASE_ITEM', payload:id}) // sending item id to reducer
+   }
+
+   // USEEFFECT TO CHANGE TOTAL AMOUNT WHEN 'state.cart' CHANGES
+   useEffect(()=>{
+      dispatch({type: 'GET_TOTALS'})
+   }, [state.cart])
 
    // The double curly braces here is because the value prop in context accepts either a single value i.e value="Hello" or an object. Its a rule of thumb for contexts.
    // Destructuring so we can import & access the object properties i.e loading, cart, total and amount separately and not as a whole. If you sent state without 
@@ -46,6 +52,10 @@ const AppProvider = ({ children }) => {
       <AppContext.Provider
          value={{
             ...state,
+            clearCart,
+            removeItem,
+            increase,
+            decrease
          }}
       >
          {children}
