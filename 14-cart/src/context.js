@@ -34,6 +34,19 @@ const AppProvider = ({ children }) => {
       dispatch({type: 'DECREASE_ITEM', payload:id}) // sending item id to reducer
    }
 
+   // function that fetches data from the 'url' defined above
+   const fetchData = async () => {
+      dispatch({type: 'LOADING'})
+      const response = await fetch(url)
+      const cart = await response.json()
+      dispatch({type: 'DISPLAY_ITEMS', payload:cart})
+   }
+
+   // invoking 'fetchData' at the beginning of this component mounting
+   useEffect(()=>{
+      fetchData()
+   }, [])
+
    // USEEFFECT TO CHANGE TOTAL AMOUNT WHEN 'state.cart' CHANGES
    useEffect(()=>{
       dispatch({type: 'GET_TOTALS'})

@@ -37,7 +37,7 @@ const reducer = (state, actions) => {
    if(actions.type === 'GET_TOTALS'){
       // Here, instead of running 2 reduce loops, we are returning an object with 2 variables and storing them in destructured variables. Hence, we just write less code, but the variables are separate nonetheless.
       // In the reduce callback(1st param), the first callback param(cartTotal) is the variable used to store the result and return. The 2nd is the array we will work with(the object i.e cartItem). The 2nd Param(i.e {total: 0, amount: 0}) is what we start with and what we can modify as we loop through the cartItem array. In one way, the cartTotal and the 2nd Param(i.e {total: 0, amount: 0}) are the same entity, just at different states during looping.)
-      const {total, amount} = state.cart.reduce((cartTotal, cartItem) => {
+      let {total, amount} = state.cart.reduce((cartTotal, cartItem) => {
          const {price, amount} = cartItem
          console.log(price, amount, cartTotal)
 
@@ -57,6 +57,18 @@ const reducer = (state, actions) => {
 
       // we are destructuring and storing the total and amount 
       return {...state, total, amount} // here, we are 
+   }
+
+   // turns loading to true(duh!)
+   if(actions.type === 'LOADING'){
+      return {...state, loading: true}
+   }
+
+   // payload here is the array of JSON objects coming from 'url' and it is called from context.js. Since it is initialized with App.js, it will
+   // fetch data and then the entire app component will be rendered. We destructure the initial state and set the cart value equal to payload.
+   // Also, we set loading to false to get rid of the 'loading' html and show the data and page.
+   if(actions.type === 'DISPLAY_ITEMS'){
+      return {...state, cart:actions.payload, loading: false}
    }
 
    return state
