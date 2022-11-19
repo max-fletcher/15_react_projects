@@ -7,9 +7,11 @@ const AppContext = React.createContext()
 const AppProvider = ({ children }) => {
    // States
    const [loading, setLoading] = useState(true)
-   const [searchTerm, setSearchTerm] = useState('a')
+   const [searchTerm, setSearchTerm] = useState('')
    const [cocktails, setCocktails] = useState([])
 
+   // using useCallback here so that the this function is not run unless 'searchTerm' changes. Hence, the value of 'fetchDrinks' is memoized unless
+   // 'searchTerm' is changed.
    const fetchDrinks = useCallback( async () => {
       setLoading(true) // set loading to true during the fetching of data
       try {
@@ -45,6 +47,7 @@ const AppProvider = ({ children }) => {
       }
    }, [searchTerm])
 
+   // Since 'fetchDrinks' is wrapped in a useCallback, it can be used in this useEffect as a dependency
    useEffect(()=> {
       fetchDrinks()
    }
